@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"></head>
+
+<body class="main-bg">
+<nav th:insert="~{fragments/header :: nav}"></nav>
+<div class="container mt-5 ">
+    <div class="row">
+        <div style="min-height: 700px;">
+            <table class="table" th:if="${session.role == 'ADMIN'}">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">name</th>
+                    <th scope="col">age</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user,i : ${user}">
+                    <td class="p-3" th:text="${i.index+1}"></td>
+                    <td class="p-3" th:text="${user.name}"></td>
+                    <td class="p-3" th:text="${user.age}"></td>
+                    <td class="p-3 " th:text="${user.email}" ></td>
+                    <td class="p-3">
+                        <form action="/admin/api/remove" method="post"
+                              onclick="confirm('Are you Sure you want to delete this ?')">
+                            <input type="hidden" name="uid" th:value="${user.id}">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <table class="table" th:if="${session.role == 'USER'}">
+                <thead>
+                <tr>
+                    <th scope="col">id</th>
+                    <th scope="col">name</th>
+                    <th scope="col">age</th>
+                    <th scope="col">email</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user,i : ${user}">
+                    <td class="p-3" th:text="${i.index+1}"></td>
+                    <td class="p-3" th:text="${user.name}"></td>
+                    <td class="p-3" th:text="${user.age}"></td>
+                    <td class="p-3 text-warning " th:text="${session.username}" th:if="${user.email == session.username}" >*</td>
+                    <td class="p-3" th:text="('*****')" th:if="${user.email != session.username}" ></td>
+                    <td class="p-3">
+                        Unauthorized
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

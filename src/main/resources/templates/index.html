@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:insert="~{fragments/header :: header}"></head>
+<body class="main-bg bg">
+<nav th:insert="~{fragments/header :: nav}"></nav>
+<div class="container mt-5 main-bg ">
+    <div class="row">
+        <div style="min-height: 700px;">
+            <div class="alert alert-warning  text-center p-5 my-5" th:text="${user}" th:if="${user}">
+            </div>
+            <div class=" p-5 alert alert-primary text-primary text-center">
+                <h1 >Welcome <span th:text="${session.role}" class="fw-bold"></span></h1>
+                <p> Learn Java, spring and spring boot!</p>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>
